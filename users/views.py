@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import *
 from django.contrib.auth.models import User
 from users.forms import LoginForm, RegisterForm
 
@@ -14,7 +15,7 @@ def index(request):
     return render(request, 'accounts/login.html', queryset)
 
 def logout(request):
-    pass
+    logout(request)
 
 def register(request):
     form = RegisterForm()
