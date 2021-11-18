@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 Django = "==2.0.3"
+django-bootstrap-v5 = "*"
 
 [dev-packages]
 
