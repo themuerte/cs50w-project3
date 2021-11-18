@@ -19,7 +19,7 @@ class Product(models.Model):
         ('SM', 'small'),
         ('LG', 'large')
         ]
-    id_category = models.ForeignKey('Category', blank=False)
+    id_category = models.ForeignKey('Category', blank=False, on_delete=models.CASCADE)
     name = models.TextField(max_length=50, blank=False)
     size = models.CharField(max_length=5, choices=size_choices, blank=True)
     price_1 = models.FloatField(blank=False)

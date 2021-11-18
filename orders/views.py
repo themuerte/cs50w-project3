@@ -2,10 +2,14 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import *
 
+
 # Create your views here.
 
 def login(request):
-    pass
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = authenticate(request, username=username, password=password)
 
 def menu(request):
     pass
