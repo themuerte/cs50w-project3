@@ -13,11 +13,6 @@
 
 {% block body %}
 
-    <form action="{% url 'reg' %}" method="post" class="form">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-          
-          <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+    
 
 {% endblock %}

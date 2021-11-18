@@ -13,8 +13,7 @@
 
 {% block body %}
 
-
-    <form action="" method="post" class="form">
+    <form action="{% url 'login' %}" method="post" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
           
