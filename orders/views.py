@@ -1,18 +1,20 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import *
+from django.contrib.auth.forms import AuthenticationForm 
 
 
 # Create your views here.
 
 def login(request):
+    
     username = request.POST['username']
     password = request.POST['password']
 
-    print(username)
-    print(password)
+    print('username: '+ username)
+    print('password: '+ password)
 
-    user = authenticate(request, username=username, password=password)
+    user = authenticate(request ,username=username, password=password)
     print(user)
 
     if user is not None: #el user es none, mirar que el username y que lo tengo con el email
