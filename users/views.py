@@ -17,7 +17,11 @@ def index(request):
     return render(request, 'accounts/login.html', queryset)
 
 def logout(request):
-    logout(request)
+    
+    if request.method=="POST":
+        logout(request)
+    
+    
 
 def register(request):
     form = RegisterForm()
