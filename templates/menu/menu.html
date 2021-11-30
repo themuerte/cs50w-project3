@@ -13,11 +13,37 @@
 
 {% block body %}
 
-    <form action="{% url 'reg' %}" method="post" class="form">
-        {% csrf_token %}
-        {% bootstrap_form form %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">Regular Pizza</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">Size</p>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown link
+            </a>
           
-          <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li>Small</li>
+              <li>Largee</li>
+            </ul>
+        </div>
+
+        <p class="card-text">Number of toppings</p>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown link
+            </a>
+          
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>Special</li>
+            </ul>
+        </div>
+        
+
+    </div>
 
 {% endblock %}
