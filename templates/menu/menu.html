@@ -2,12 +2,14 @@
 
 {# Load the tag library #}
 {% load bootstrap5 %}
+{% load static %}
 
 {% block dependence %}
 
     {# Load CSS and JavaScript #}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    {% static 'js/script.js' %}
 
 {% endblock %}
 
@@ -15,19 +17,28 @@
 
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">Pizza </h5>
-            <p class="card-text">size</p>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown button
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li class="dropdown-item">Small</li>
-                  <li class="dropdown-item">Large</li>
-                </ul>
-            </div>
-            
-        </div>
+        <h5 class="card-title">Regular Pizza</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">Size</p>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="Large">Large</option>
+            <option value="Small">Small</option>
+        </select>
+
+        <p class="card-text">Number of toppings</p>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Special</option>
+        </select>
+
+        <button type="button" class="btn btn-primary">Enter</button>
+
+        
+
     </div>
 
 {% endblock %}
