@@ -9,7 +9,7 @@
     {# Load CSS and JavaScript #}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    {% static 'js/script.js' %}
+    <script src="{% static 'js/script.js' %}"></script>
 
 {% endblock %}
 
@@ -27,13 +27,16 @@
         </select>
 
         <p class="card-text">Number of toppings</p>
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example" id="cant_toppings" onChange="cant_toppings">
             <option selected>Open this select menu</option>
             <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
             <option value="4">Special</option>
         </select>
+        <div id="toppings">
+
+        </div>
 
         <button type="button" class="btn btn-primary">Enter</button>
 

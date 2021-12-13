@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.base import ModelState
 
 # Create your models here.
 
@@ -26,5 +28,18 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural = "Products"
 
-#class MenuItem(models.Model):
-#    pass
+class MenuItem(models.Model):
+    product = models.ForeignKey(Product, models.PROTECT, blank=False, null=False)
+    amoun = models.DecimalField(max_digits=20, decimal_places=2, blank=False, null=False)
+    extra = models.IntegerField()
+    extras = models.TextField(blank=True)
+
+class Order(models.Model):
+    state_choices = [ 
+        ('AC','Active'),
+        ('DE', 'Deactivated')
+        ]
+    
+    menu_item = models.ForeignKey(MenuItem, models.CASCADE, blank=False, null=False)
+    user = models.ManyToManyField(User)
+    state = models.CharField(max_length=5, choices=state_choices, blank=False)
