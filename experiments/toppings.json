@@ -1,0 +1,49 @@
+[
+    {"model": "orders.product", 
+        "pk": 1, 
+        "fields": {
+            "category": "To",
+             "name": "Pepperoni", 
+             "size": "", 
+             "price_1": 1.25, 
+             "price_2": null}
+            },
+    {"model": "orders.product", 
+        "pk": 2, 
+        "fields": {
+            "category": "To",
+            "name": "Sausage",
+            "size": "",
+            "price_1": 1.25,
+            "price_2": null}
+        },
+
+    {"model": "orders.product", 
+        "pk": 3, 
+        "fields": {
+            "category": "To",
+             "name": "Mushrooms", 
+             "size": "", 
+             "price_1": 1.25, 
+             "price_2": null}
+            }, 
+    {"model": "orders.product", 
+        "pk": 4, 
+        "fields": {
+            "category": "To",
+            "name": "Onions",
+            "size": "", 
+            "price_1": 1.25,
+            "price_2": null}
+        }, 
+
+    {"model": "orders.product", 
+        "pk": 5, 
+        "fields": {
+            "category": "To",
+            "name": "Ham", 
+            "size": "",
+            "price_1": 1.25, 
+            "price_2": null}
+        }
+]

@@ -23,7 +23,10 @@ class Product(models.Model):
     name = models.TextField(max_length=50, blank=False)
     size = models.CharField(max_length=5, choices=size_choices, blank=True)
     price_1 = models.FloatField(blank=False)
-    price_2 = models.FloatField(blank=True)
+    price_2 = models.FloatField(blank=True, null=True)
+
+    def __str__(self) -> str:
+        return self.name + "->" + self.category
 
     class Meta:
         verbose_name_plural = "Products"

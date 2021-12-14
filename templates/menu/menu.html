@@ -18,7 +18,6 @@
     <div class="card" style="width: 18rem;">
         <div class="card-body">
         <h5 class="card-title">Regular Pizza</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
         <p class="card-text">Size</p>
         <select class="form-select" aria-label="Default select example">
             <option selected>Open this select menu</option>
@@ -34,8 +33,17 @@
             <option value="3">Three</option>
             <option value="4">Special</option>
         </select>
-        <div id="toppings">
 
+        <p class="card-text">Toppings</p>
+        <div id="toppings">
+            <select class="form-select" aria-label="multiple select example" id="cant_toppings" onChange="cant_toppings">
+                <option selected>Open this select menu</option>
+                {% for pro in product %}
+                    {% if pro.price_2 is null %}
+                        <option>{{ pro.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
         </div>
 
         <button type="button" class="btn btn-primary">Enter</button>
