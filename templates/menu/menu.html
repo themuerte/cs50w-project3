@@ -46,10 +46,42 @@
             </select>
         </div>
 
-        <button type="button" class="btn btn-primary">Enter</button>
-
-        
-
+        <button type="button" class="btn btn-primary">Agregar</button>
     </div>
 
+    <hr>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+        <h5 class="card-title">Sicilian Pizza</h5>
+        <p class="card-text">Size</p>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="Large">Large</option>
+            <option value="Small">Small</option>
+        </select>
+
+        <p class="card-text">Number of toppings</p>
+        <select class="form-select" aria-label="Default select example" id="cant_toppings" onChange="cant_toppings">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Special</option>
+        </select>
+
+        <p class="card-text">Toppings</p>
+        <div id="toppings">
+            <select class="form-select" multiple aria-label="multiple select example id="cant_toppings">
+                <option selected>Open this select menu</option>
+                {% for pro in product %}
+                    {% if pro.category == 'To'  %}
+                        <option>{{ pro.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-primary">Agregar</button>
+    </div>
 {% endblock %}

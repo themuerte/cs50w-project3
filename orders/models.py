@@ -14,8 +14,10 @@ class MenuItem(models.Model):
         ('RP', 'regular pizza'),
         ('SP', 'siciliam pizza'),
         ('To', 'toppings'),
+        ('ToS', 'toppingsSubs'),
         ('Su', 'subs'),
         ('Pa', 'pasta'),
+        ('Sa', 'salads'),
         ('Di', 'dinner platters')
         ]
     
@@ -31,18 +33,21 @@ class MenuItem(models.Model):
     class Meta:
         verbose_name_plural = "MenuItem"
 
-class OrderItem(models.Model):
-    product = models.ForeignKey(MenuItem, models.PROTECT, blank=False, null=False)
-    amoun = models.DecimalField(max_digits=20, decimal_places=2, blank=False, null=False)
-    extra = models.IntegerField()
-    extras = models.TextField(blank=True)
 
 class Order(models.Model):
     state_choices = [ 
         ('AC','Active'),
-        ('DE', 'Deactivated')
+        ('FI', 'Finished'),
+        ('WA', 'Waiting')
         ]
     
-    menu_item = models.ForeignKey(OrderItem, models.CASCADE, blank=False, null=False)
     user = models.ManyToManyField(User)
+    date = models.DateField(auto_now_add=True)
     state = models.CharField(max_length=5, choices=state_choices, blank=False)
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(MenuItem, models.CASCADE, blank=False, null=False)
+    order = models.ForeignKey(Order, models.CASCADE, blank=True, null=True)
+    amoun = models.DecimalField(max_digits=20, decimal_places=2, blank=False, null=False)
+    extra = models.IntegerField()
+    extras = models.TextField(blank=True)

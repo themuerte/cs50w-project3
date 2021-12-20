@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import *
 from django.contrib.auth.models import User
+from django.contrib.auth import login as login_django
 from users.forms import LoginForm, RegisterForm
 from django.contrib.auth.forms import AuthenticationForm 
 
@@ -29,8 +30,8 @@ def index(request):
         }
 
         if user is not None: #el user es none, mirar que el username y que lo tengo con el email
-            print("esta autenticado")
-            return redirect('menu')
+            login_django(request, user)
+            return redirect('order')
         else:
             return redirect('index')
     
