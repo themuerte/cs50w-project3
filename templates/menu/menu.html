@@ -36,10 +36,10 @@
 
         <p class="card-text">Toppings</p>
         <div id="toppings">
-            <select class="form-select" aria-label="multiple select example" id="cant_toppings" onChange="cant_toppings">
+            <select class="form-select" multiple aria-label="multiple select example id="cant_toppings">
                 <option selected>Open this select menu</option>
                 {% for pro in product %}
-                    {% if pro.price_2 is null %}
+                    {% if pro.category == 'To'  %}
                         <option>{{ pro.name }}</option>
                     {% endif %}
                 {% endfor %}
