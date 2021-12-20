@@ -25,8 +25,9 @@ SECRET_KEY = 'i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+LOGOUT_REDIRECT_URL='/'
 
 # Application definition
 
@@ -80,7 +81,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pizza.wsgi.application'
 
 
-# Database
+# Database-
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
@@ -128,3 +129,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

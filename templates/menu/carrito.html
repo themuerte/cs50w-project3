@@ -1,0 +1,19 @@
+{% extends 'base_order.html' %}
+
+{# Load the tag library #}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block dependence %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+{% endblock %}
+
+{% block body %}
+
+    Hola esto es el carrito
+
+{% endblock %}

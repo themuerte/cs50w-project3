@@ -1,13 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'base_order.html' %}
 
 {# Load the tag library #}
 {% load bootstrap5 %}
+{% load static %}
 
 {% block dependence %}
 
     {# Load CSS and JavaScript #}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <script src="{% static 'js/script.js' %}"></script>
 
 {% endblock %}
 
@@ -16,32 +18,36 @@
     <div class="card" style="width: 18rem;">
         <div class="card-body">
         <h5 class="card-title">Regular Pizza</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
         <p class="card-text">Size</p>
-        <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown link
-            </a>
-          
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li>Small</li>
-              <li>Largee</li>
-            </ul>
-        </div>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="Large">Large</option>
+            <option value="Small">Small</option>
+        </select>
 
         <p class="card-text">Number of toppings</p>
-        <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown link
-            </a>
-          
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>Special</li>
-            </ul>
+        <select class="form-select" aria-label="Default select example" id="cant_toppings" onChange="cant_toppings">
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Special</option>
+        </select>
+
+        <p class="card-text">Toppings</p>
+        <div id="toppings">
+            <select class="form-select" multiple aria-label="multiple select example id="cant_toppings">
+                <option selected>Open this select menu</option>
+                {% for pro in product %}
+                    {% if pro.category == 'To'  %}
+                        <option>{{ pro.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
         </div>
+
+        <button type="button" class="btn btn-primary">Enter</button>
+
         
 
     </div>
