@@ -29,7 +29,7 @@ class MenuItem(models.Model):
         return self.name + "->" + self.category
 
     class Meta:
-        verbose_name_plural = "Products"
+        verbose_name_plural = "MenuItem"
 
 class OrderItem(models.Model):
     product = models.ForeignKey(MenuItem, models.PROTECT, blank=False, null=False)
