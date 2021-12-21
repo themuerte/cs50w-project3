@@ -38,16 +38,17 @@ class Order(models.Model):
     state_choices = [ 
         ('AC','Active'),
         ('FI', 'Finished'),
-        ('WA', 'Waiting')
         ]
     
-    user = models.ManyToManyField(User)
+    user = models.ForeignKey(User, models.CASCADE, related_name="orders")
     date = models.DateField(auto_now_add=True)
     state = models.CharField(max_length=5, choices=state_choices, blank=False)
+    total = models.DecimalField(max_digits=20, decimal_places=2, blank=False, null=False)
 
 class OrderItem(models.Model):
     product = models.ForeignKey(MenuItem, models.CASCADE, blank=False, null=False)
     order = models.ForeignKey(Order, models.CASCADE, blank=True, null=True)
     amoun = models.DecimalField(max_digits=20, decimal_places=2, blank=False, null=False)
+    size = models.CharField(max_length=40, blank=True, null=True)
     extra = models.IntegerField()
     extras = models.TextField(blank=True)

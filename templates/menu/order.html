@@ -19,11 +19,15 @@
         <div class="card-body">
             <h5 class="card-title">Web50 pizza</h5>
             <p class="card-text">Web50 pizza es un sitio donde podes ordenar pizza, pastas, subs, ensaladas y platos fuertes</p>
-            {% if menu_item %}
-                <p>para poder crear una nueva orden confirme la que tiene pendiente la puede ver en la opcion del carrita en la barra de navegacion</p>
-            {% else %}
-                <a href="{% url 'menu' %}"><button type="button" class="btn btn-primary">Ordenar</button></a>
-            {% endif %}        
+            <form action="" method="post">
+                {% csrf_token %}
+                {% if order %}
+                    <p>para poder crear una nueva orden confirme la que tiene pendiente la puede ver en la opcion del carrita en la barra de navegacion</p>
+                {% else %}
+                    <input type="submit" value="Ordenar">
+                {% endif %}        
+            </form>
+            
         </div>
     </div>
     
