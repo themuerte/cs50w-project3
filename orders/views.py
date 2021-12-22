@@ -99,7 +99,6 @@ def order(request):
         return render(request, 'menu/order.html', queryset)
 
     elif request.method == 'POST':
-        print("metodo post en order")
         order = Order.objects.create(user=request.user, state='AC', total=0) 
         order.save()
         return redirect("menu")
@@ -109,12 +108,38 @@ def order(request):
 def carrito(request):
     if request.method == 'GET':
         queryset = {
-            'orders':Order.objects.filter(user=request.user),
-            'order_item': OrderItem.objects.filter(order=request.order)
+            'orders':Order.objects.filter(user=request.user)
         }
         return render(request, 'menu/carrito.html', queryset)
     
     elif request.method == 'POST':
+        order = Order.objects.get(pk=request.order.pk)
+        order.state = 'WA'
+        order.save()
+        return redirect('carrito')
+
+def delete_order_item(request):
+    if request.method == 'GET':
+        order_item = OrderItem.objects.get(pk=request.GET.get("pk"))
+        order_item.delete()
+        if  OrderItem.objects.get(pk=request.GET.get("pk")).exists():
+            print("no se ha podido elimina")
+            return redirect('carrito')
+        else:
+            return redirect('carrito')
+    elif request.method == 'POST':
         pass
 
-#el deslogueo esta en las rutas de users
+def admin(request):
+    if request.method == 'GET':
+        queryset =  {
+            'orders': Order.objects.filter(state='WA')
+        }
+        return render(request, 'menu/admin.html', queryset)
+    elif request.method == 'POST':
+        order_user = request.POST.get("order")
+        order = Order.objects.get(pk=order_user)
+        order.state = 'FI'
+        order.save()
+        
+        return redirect("admin")

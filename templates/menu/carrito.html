@@ -14,14 +14,80 @@
 
 {% block body %}
 
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+    {% for order in orders %}
+        {% if order.state == 'AC' %}
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3>Orden: {{ order.pk }}</h3>
+                        <h4>Total: {{ order.total }}</h4>
+                        <h4>Items: </h4>
+                        <form action="" method="post">
+                            <input type="submit" value="Confirmar">
+                        </form>
+                    </div>
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Tamaño</th>
+                                <th scope="col">Cant de extra</th>
+                                <th scope="col">Extras</th>
+                                <th scope="col">Monto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in order.order_item.all %}
+                                <tr>
+                                    <th scope="row">{{ item.product.name }}</th>
+                                    <td>{{ item.size }}</td>
+                                    <td>{{ item.extra }}</td>
+                                    <td>{{ item.extras }}</td>
+                                    <td>{{ item.amoun }}</td>
+                                    <td><a href="{% url 'delete_item' item.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>                                   
+                                </tr>  
+                            {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Orden: {{ order.pk }}</h3>
+                    <h4>Total: {{ order.total }}</h4>
+                    <h4>Items: </h4>
+                </div>
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Tamaño</th>
+                            <th scope="col">Cant de extra</th>
+                            <th scope="col">Extras</th>
+                            <th scope="col">Monto</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in order.order_item.all %}
+                            <tr>
+                                <th scope="row">{{ item.product.name }}</th>
+                                <td>{{ item.size }}</td>
+                                <td>{{ item.extra }}</td>
+                                <td>{{ item.extras }}</td>
+                                <td>{{ item.amoun }}</td>
+                            </tr>  
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+            </div>
         </div>
-    </div>
+        {% endif %}
+    {% endfor %}
 
 {% endblock %}
