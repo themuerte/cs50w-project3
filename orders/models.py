@@ -45,10 +45,16 @@ class Order(models.Model):
     state = models.CharField(max_length=5, choices=state_choices, blank=False)
     total = models.DecimalField(max_digits=20, decimal_places=2, blank=False, null=False)
 
+    def __str__(self):
+        return  str(self.pk) +" -> "+ self.user.username +" -> "+ self.state 
+
 class OrderItem(models.Model):
     product = models.ForeignKey(MenuItem, models.CASCADE, blank=False, null=False)
     order = models.ForeignKey(Order, models.CASCADE, blank=True, null=True)
     amoun = models.DecimalField(max_digits=20, decimal_places=2, blank=False, null=False)
     size = models.CharField(max_length=40, blank=True, null=True)
-    extra = models.IntegerField()
-    extras = models.TextField(blank=True)
+    extra = models.IntegerField(blank=True, null=True)
+    extras = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.product.name +" -> "+ str(self.order.pk) +" -> "+ self.order.user.username

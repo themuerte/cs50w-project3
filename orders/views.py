@@ -22,9 +22,11 @@ def menu(request):
 
         if request.POST.get('size') is not None:
             size = request.POST.get('size')
+            
             if request.POST.get('toppings') is not None:
                 toppings = request.POST.getlist('toppings')
                 category = request.POST.get('category')
+
                 if category == 'RP' or category == 'SP':
                     #pizzas
                     cant_toppings = request.POST.get('cantToppings')
@@ -36,31 +38,58 @@ def menu(request):
                         order_item.save()
                         order.total += precio
                         order.save()
-
                         
                     else:
                         if category == 'RP':
                             precio = Decimal(menu_item.price_1) + Decimal(int(cant_toppings) * 1.25)
-                        precio = Decimal(menu_item.price_1) + Decimal(int(cant_toppings) * 2)
+                        else:
+                            precio = Decimal(menu_item.price_1) + Decimal(int(cant_toppings) * 2)
+
                         order_item = OrderItem.objects.create(product=menu_item, order=order, amoun=precio, size=size, extra=cant_toppings, extras=toppings)
                         order_item.save()
                         order.total += precio
                         order.save()
-
                 else:
                     #subs
-                    pass
-            else:
+                    subs = request.POST.get("menu_item")
+                    menu_item = MenuItem.objects.get(pk=subs)
+                    if size == 'Small' and menu_item.name != 'Sausage, Peppers & Onions':
+                        precio = Decimal(menu_item.price_1) + Decimal(len(toppings) * 0.5)
+                    else:
+                        precio = Decimal(menu_item.price_2) + Decimal(len(toppings) * 0.5)
+                    
+                    order_item = OrderItem.objects.create(product=menu_item, order=order, amoun=precio, size=size, extra=len(toppings), extras=toppings)
+                    order_item.save()
+                    order.total += precio
+                    order.save()
+                        
+            else:   
                 #dinner plats
-                pass
+                dinner_plats = request.POST.get("menu_item")
+                menu_item = MenuItem.objects.get(pk=dinner_plats)
+                if size == 'Large':
+                    precio = Decimal(menu_item.price_2)
+                else:
+                    precio = Decimal(menu_item.price_1)
+                
+                order_item = OrderItem.objects.create(product=menu_item, order=order, amoun=precio, size=size)
+                order_item.save()
+                order.total += precio
+                order.save()
         else:
-            #los demas platillos
-            pass
+            #los demas platillos(pastas o ensaladas)
+            item = request.POST.get("menu_item")
+            menu_item = MenuItem.objects.get(pk=item)
+
+            precio = Decimal(menu_item.price_1)
+            order_item = OrderItem.objects.create(product=menu_item, order=order, amoun=precio)
+            order_item.save()
+            order.total += precio
+            order.save()
     
     print("no es get ni post, asi que xd")
     return redirect('menu')
     
-
 
 def order(request):
     if request.method == 'GET':
