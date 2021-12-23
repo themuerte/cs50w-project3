@@ -27,15 +27,6 @@
                 <option value="Small">Small</option>
             </select>
 
-            <p class="card-text">Number of toppings</p>
-            <select class="form-select" aria-label="Default select example" id="cant_toppings1" name="cantToppings">
-                 
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">Special</option>
-            </select>
-
             <p class="card-text">Toppings</p>
                 <div id="toppings">
                     <select class="form-select" multiple aria-label="multiple select example" id="toppings1" onChange="cantToppings" name="toppings">
@@ -58,26 +49,16 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
             <h5 class="card-title">Sicilian Pizza</h5>
+            
             <p class="card-text">Size</p>
-            <select class="form-select" aria-label="Default select example" name="size">
-                 
+            <select class="form-select" aria-label="Default select example" name="size">        
                 <option value="Large">Large</option>
                 <option value="Small">Small</option>
             </select>
     
-            <p class="card-text">Number of toppings</p>
-            <select class="form-select" aria-label="Default select example" id="cant_toppings2" name="cantToppings">
-                 
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">Special</option>
-            </select>
-    
             <p class="card-text">Toppings</p>
             <div id="toppings">
-                <select class="form-select" multiple aria-label="multiple select example" id="toppings2" onChange="cantToppings" name="toppings">
-                     
+                <select class="form-select" multiple aria-label="multiple select example" id="toppings2" onChange="cantToppings" name="toppings">                     
                     {% for pro in product %}
                         {% if pro.category == 'To'  %}
                              <option value='{{ pro.name }}'>{{ pro.name }}</option>
@@ -97,7 +78,7 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
             <h5 class="card-title">Subs</h5>
-            <select class="form-select" aria-label="multiple select example" name="menu_item">  
+            <select class="form-select" aria-label="multiple select example" name="menu_item">
                 {% for pro in product %}
                     {% if pro.category == 'Su' %}
                          <option value='{{ pro.pk }}'>{{ pro.name }}</option>

@@ -6,6 +6,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from .models import OrderItem, MenuItem, Order
 from decimal import *
 
+from django.views.generic import UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .forms import OrderItemForm
+
 # Create your views here.
 
 def menu(request):
@@ -29,7 +33,7 @@ def menu(request):
 
                 if category == 'RP' or category == 'SP':
                     #pizzas
-                    cant_toppings = request.POST.get('cantToppings')
+                    cant_toppings = len(toppings)
                     menu_item = MenuItem.objects.get(category=category)
 
                     if size == 'Large':
@@ -108,12 +112,12 @@ def order(request):
 def carrito(request):
     if request.method == 'GET':
         queryset = {
-            'orders':Order.objects.filter(user=request.user)
+            'orders':Order.objects.filter(user=request.user).all()
         }
         return render(request, 'menu/carrito.html', queryset)
     
     elif request.method == 'POST':
-        order = Order.objects.get(pk=request.order.pk)
+        order = Order.objects.get(pk=request.POST.get("order"))
         order.state = 'WA'
         order.save()
         return redirect('carrito')
@@ -133,7 +137,7 @@ def delete_order_item(request):
 def admin(request):
     if request.method == 'GET':
         queryset =  {
-            'orders': Order.objects.filter(state='WA')
+            'orders': Order.objects.filter(state='WA').all()
         }
         return render(request, 'menu/admin.html', queryset)
     elif request.method == 'POST':
@@ -142,4 +146,17 @@ def admin(request):
         order.state = 'FI'
         order.save()
         
-        return redirect("admin")
+        return redirect("admin_order")
+
+class OrderItemUpdateView(UpdateView):
+    model = OrderItem
+    form_class = OrderItemForm
+    template_name = "menu/order_item_form.html"
+    success_url = reverse_lazy("carrito")
+
+"""     def form_valid(self, form):
+        obj = form.save(commit=False)
+        
+        
+        return super().form_valid(form)
+ """

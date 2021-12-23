@@ -23,7 +23,6 @@ class MenuItem(models.Model):
     
     category = models.CharField(max_length=5, choices=category_choices, blank=False)
     name = models.TextField(max_length=50, blank=False)
-    size = models.CharField(max_length=5, choices=size_choices, blank=True)
     price_1 = models.FloatField(blank=False)
     price_2 = models.FloatField(blank=True, null=True)
 

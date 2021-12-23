@@ -14,6 +14,7 @@
 
 {% block body %}
 
+    <h3>Ordenes Activas</h3>
     {% for order in orders %}
         {% if order.state == 'AC' %}
             <div class="container">
@@ -23,8 +24,11 @@
                         <h4>Total: {{ order.total }}</h4>
                         <h4>Items: </h4>
                         <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="order" value={{ order.pk }}>
                             <input type="submit" value="Confirmar">
                         </form>
+                        <a href="{% url 'menu' %}"><button type="button" class="btn btn-primary">Agragar item</button></a>
                     </div>
                     <div class="col">
                         <table class="table">
@@ -45,7 +49,9 @@
                                     <td>{{ item.extra }}</td>
                                     <td>{{ item.extras }}</td>
                                     <td>{{ item.amoun }}</td>
-                                    <td><a href="{% url 'delete_item' item.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>                                   
+                                    <td><a href="{% url 'delete_item' item.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+                                    <td><button type="button" class="btn btn-warning" data-urlpage="{% url 'update_item' item.pk %}"
+                                        onclick="loadContent(this)">Editar</button></td>                            
                                 </tr>  
                             {% endfor %}
                             </tbody>
@@ -53,7 +59,52 @@
                     </div>
                 </div>
             </div>
-        {% else %}
+        {% endif %}
+    {% endfor %}
+
+    <h3>Ordenes En Espera</h3>
+    {% for order in orders %}
+            {% if order.state == 'WA' %}
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3>Orden: {{ order.pk }}</h3>
+                        <h4>Total: {{ order.total }}</h4>
+                        <h4>Items: </h4>
+                    </div>
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Tamaño</th>
+                                <th scope="col">Cant de extra</th>
+                                <th scope="col">Extras</th>
+                                <th scope="col">Monto</th>
+                              </tr>
+                            </thead>
+                            <tbody> 
+                            {% for item in order.order_item.all %}
+                                <tr>
+                                    <th scope="row">{{ item.product.name }}</th>
+                                    <td>{{ item.size }}</td>
+                                    <td>{{ item.extra }}</td>
+                                    <td>{{ item.extras }}</td>
+                                    <td>{{ item.amoun }}</td>
+                                </tr>  
+                            {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+    {% endfor %}
+
+
+    <h3>Ordenes Terminadas</h3>
+    {% for order in orders %}
+        {% if order.state == 'FI' %}
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -72,7 +123,7 @@
                             <th scope="col">Monto</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody> 
                         {% for item in order.order_item.all %}
                             <tr>
                                 <th scope="row">{{ item.product.name }}</th>
@@ -89,5 +140,38 @@
         </div>
         {% endif %}
     {% endfor %}
+
+         <!-- Modal -->
+         <div class="modal fade" id="modalTemplate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTemplateLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="contenido-modal-template">
+    
+                </div>
+    
+            </div>
+            </div>
+        </div>
+    
+        <script>
+            const myModal = new bootstrap.Modal(document.getElementById('modalTemplate'), [])
+            const contentModel = document.querySelector("#contenido-modal-template")
+            const loadContent= (element) =>{
+                Swal.showLoading()
+                let url = element.dataset.urlpage;
+                fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    contentModel.innerHTML = data
+                    const form = contentModel.querySelector("form")
+                    if(form){form.setAttribute("action", url)}
+                    Swal.close()
+                    myModal.show()
+                });
+            }
+        </script>
 
 {% endblock %}
