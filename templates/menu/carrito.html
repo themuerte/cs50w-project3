@@ -29,6 +29,8 @@
                             <input type="submit" value="Confirmar">
                         </form>
                         <a href="{% url 'menu' %}"><button type="button" class="btn btn-primary">Agragar item</button></a>
+                        <button type="button" class="btn btn-danger" data-urlpage="{% url 'delete_order' order.pk %}"
+                                        onclick="loadContent(this)">Eliminar</button>
                     </div>
                     <div class="col">
                         <table class="table">
@@ -43,16 +45,25 @@
                             </thead>
                             <tbody>
                             {% for item in order.order_item.all %}
-                                <tr>
-                                    <th scope="row">{{ item.product.name }}</th>
-                                    <td>{{ item.size }}</td>
-                                    <td>{{ item.extra }}</td>
-                                    <td>{{ item.extras }}</td>
-                                    <td>{{ item.amoun }}</td>
-                                    <td><a href="{% url 'delete_item' item.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
-                                    <td><button type="button" class="btn btn-warning" data-urlpage="{% url 'update_item' item.pk %}"
-                                        onclick="loadContent(this)">Editar</button></td>                            
-                                </tr>  
+                                {% if item.extra >= 4 %}
+                                    <tr>
+                                        <th scope="row">{{ item.product.name }} Especial</th>
+                                        <td>{% if item.size %} {{ item.size }} {% endif %}</td>
+                                        <td>{% if item.extra %}{{ item.extra }}{% endif %}</td>
+                                        <td>{% if item.extras %}{{ item.extras }}{% endif %}</td>
+                                        <td>{% if item.amoun %}{{ item.amoun }}{% endif %}</td>
+                                        <td><a href="{% url 'delete_item' item.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+                                    </tr>  
+                                {% else %}
+                                    <tr>
+                                        <th scope="row">{{ item.product.name }}</th>
+                                        <td>{% if item.size %} {{ item.size }} {% endif %}</td>
+                                        <td>{% if item.extra %}{{ item.extra }}{% endif %}</td>
+                                        <td>{% if item.extras %}{{ item.extras }}{% endif %}</td>
+                                        <td>{% if item.amoun %}{{ item.amoun }}{% endif %}</td>
+                                        <td><a href="{% url 'delete_item' item.pk %}"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
                             </tbody>
                           </table>
@@ -84,14 +95,24 @@
                               </tr>
                             </thead>
                             <tbody> 
-                            {% for item in order.order_item.all %}
-                                <tr>
-                                    <th scope="row">{{ item.product.name }}</th>
-                                    <td>{{ item.size }}</td>
-                                    <td>{{ item.extra }}</td>
-                                    <td>{{ item.extras }}</td>
-                                    <td>{{ item.amoun }}</td>
-                                </tr>  
+                                {% for item in order.order_item.all %}
+                                {% if item.extra >= 4 %}
+                                    <tr>
+                                        <th scope="row">{{ item.product.name }} Especial</th>
+                                        <td>{% if item.size %} {{ item.size }} {% endif %}</td>
+                                        <td>{% if item.extra %}{{ item.extra }}{% endif %}</td>
+                                        <td>{% if item.extras %}{{ item.extras }}{% endif %}</td>
+                                        <td>{% if item.amoun %}{{ item.amoun }}{% endif %}</td>
+                                    </tr>  
+                                {% else %}
+                                    <tr>
+                                        <th scope="row">{{ item.product.name }}</th>
+                                        <td>{% if item.size %} {{ item.size }} {% endif %}</td>
+                                        <td>{% if item.extra %}{{ item.extra }}{% endif %}</td>
+                                        <td>{% if item.extras %}{{ item.extras }}{% endif %}</td>
+                                        <td>{% if item.amoun %}{{ item.amoun }}{% endif %}</td>
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
                             </tbody>
                           </table>
@@ -124,14 +145,24 @@
                           </tr>
                         </thead>
                         <tbody> 
-                        {% for item in order.order_item.all %}
-                            <tr>
-                                <th scope="row">{{ item.product.name }}</th>
-                                <td>{{ item.size }}</td>
-                                <td>{{ item.extra }}</td>
-                                <td>{{ item.extras }}</td>
-                                <td>{{ item.amoun }}</td>
-                            </tr>  
+                            {% for item in order.order_item.all %}
+                            {% if item.extra >= 4 %}
+                                <tr>
+                                    <th scope="row">{{ item.product.name }} Especial</th>
+                                    <td>{% if item.size %} {{ item.size }} {% endif %}</td>
+                                    <td>{% if item.extra %}{{ item.extra }}{% endif %}</td>
+                                    <td>{% if item.extras %}{{ item.extras }}{% endif %}</td>
+                                    <td>{% if item.amoun %}{{ item.amoun }}{% endif %}</td>
+                                </tr>  
+                            {% else %}
+                                <tr>
+                                    <th scope="row">{{ item.product.name }}</th>
+                                    <td>{% if item.size %} {{ item.size }} {% endif %}</td>
+                                    <td>{% if item.extra %}{{ item.extra }}{% endif %}</td>
+                                    <td>{% if item.extras %}{{ item.extras }}{% endif %}</td>
+                                    <td>{% if item.amoun %}{{ item.amoun }}{% endif %}</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                         </tbody>
                       </table>

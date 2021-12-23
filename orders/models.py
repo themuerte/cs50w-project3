@@ -49,8 +49,8 @@ class Order(models.Model):
         return  str(self.pk) +" -> "+ self.user.username +" -> "+ self.state 
 
 class OrderItem(models.Model):
-    product = models.ForeignKey(MenuItem, models.CASCADE, blank=False, null=False, related_name="order_item")
-    order = models.ForeignKey(Order, models.CASCADE, blank=True, null=True)
+    product = models.ForeignKey(MenuItem, models.CASCADE, blank=False, null=False, related_name="menu_item")
+    order = models.ForeignKey(Order, models.CASCADE, blank=True, null=True, related_name="order_item")
     amoun = models.DecimalField(max_digits=20, decimal_places=2, blank=False, null=False)
     size = models.CharField(max_length=40, blank=True, null=True)
     extra = models.IntegerField(blank=True, null=True)

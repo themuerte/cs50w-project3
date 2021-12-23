@@ -1,0 +1,5 @@
+{% load bootstrap5 %}
+<form method="post">{% csrf_token %}
+    ¿Estás seguro que deseas borrar el "{{ object }}"?
+    <input class="btn btn-danger" type="submit" value="eliminar" />
+</form> 

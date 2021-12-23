@@ -122,22 +122,21 @@ def carrito(request):
         order.save()
         return redirect('carrito')
 
-def delete_order_item(request):
+def delete_order_item(request, pk):
     if request.method == 'GET':
-        order_item = OrderItem.objects.get(pk=request.GET.get("pk"))
+        order_item = OrderItem.objects.get(pk=pk)
+        order = Order.objects.filter(Q(state='AC') & Q(user=request.user)).first()
+        order.total -= order_item.amoun
+        order.save()
         order_item.delete()
-        if  OrderItem.objects.get(pk=request.GET.get("pk")).exists():
-            print("no se ha podido elimina")
-            return redirect('carrito')
-        else:
-            return redirect('carrito')
+        return redirect('carrito')
     elif request.method == 'POST':
         pass
 
 def admin(request):
     if request.method == 'GET':
         queryset =  {
-            'orders': Order.objects.filter(state='WA').all()
+            'orders': Order.objects.all()
         }
         return render(request, 'menu/admin.html', queryset)
     elif request.method == 'POST':
@@ -160,3 +159,9 @@ class OrderItemUpdateView(UpdateView):
         
         return super().form_valid(form)
  """
+
+class OrderDeleteView(DeleteView):
+    model = Order
+    template_name = "menu/menu_order_delete.html"
+    success_url = reverse_lazy("carrito")
+ 
