@@ -1,0 +1,1 @@
+[{"model": "orders.menuitem", "pk": 1, "fields": {"category": "To", "name": "Pepperoni", "size": "", "price_1": 1.25, "price_2": null}}]%  

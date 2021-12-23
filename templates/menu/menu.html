@@ -1,0 +1,185 @@
+{% extends 'base_order.html' %}
+
+{# Load the tag library #}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block dependence %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <script src="{% static 'js/script.js' %}"></script>
+
+{% endblock %}
+
+{% block body %}
+
+    <!--parte de la pizza regular-->
+    <form action="" method="post">
+        {% csrf_token %} 
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">Regular Pizza</h5>
+            <p class="card-text">Size</p>
+            <select class="form-select" aria-label="Default select example" name="size"> 
+                <option value="Large">Large</option>
+                <option value="Small">Small</option>
+            </select>
+
+            <p class="card-text">Toppings</p>
+                <div id="toppings">
+                    <select class="form-select" multiple aria-label="multiple select example" id="toppings1" onChange="cantToppings" name="toppings">
+                        {% for pro in product %}
+                            {% if pro.category == 'To'  %}
+                                <option value='{{ pro.name }}' >{{ pro.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <input type="hidden" name="category" value="RP">
+                <input type="submit" value="Agregar">
+            </div>
+        </div>
+    </form>
+
+    <!--parte de la Sicilian Pizza-->
+    <form action="" method="post">
+        {% csrf_token %} 
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">Sicilian Pizza</h5>
+            
+            <p class="card-text">Size</p>
+            <select class="form-select" aria-label="Default select example" name="size">        
+                <option value="Large">Large</option>
+                <option value="Small">Small</option>
+            </select>
+    
+            <p class="card-text">Toppings</p>
+            <div id="toppings">
+                <select class="form-select" multiple aria-label="multiple select example" id="toppings2" onChange="cantToppings" name="toppings">                     
+                    {% for pro in product %}
+                        {% if pro.category == 'To'  %}
+                             <option value='{{ pro.name }}'>{{ pro.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="hidden" name="category" value="SP">
+            <input type="submit" value="Agregar">
+        </div>
+        </div>
+    </form>
+    
+    <!--parte de los subs-->
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">Subs</h5>
+            <select class="form-select" aria-label="multiple select example" name="menu_item">
+                {% for pro in product %}
+                    {% if pro.category == 'Su' %}
+                         <option value='{{ pro.pk }}'>{{ pro.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+    
+            <p class="card-text">Size</p>
+            <select class="form-select" aria-label="Default select example" name="size">
+                <option value="Large">Large</option>
+                <option value="Small">Small</option>
+            </select>
+    
+    
+            <p class="card-text">Toppings</p>
+            <div id="toppings">
+                <select class="form-select" multiple aria-label="multiple select example" name="toppings">                     
+                    {% for pro in product %}
+                        {% if pro.category == 'ToS'  %}
+                             <option value='{{ pro.name }}'>{{ pro.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="hidden" name="category" value="Su">
+            <input type="submit" value="Agregar">
+        </div>
+        </div>
+    </form>
+
+    <!--parte de pasta-->
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">Pasta</h5>
+    
+            <div id="toppings">
+                <select class="form-select" aria-label="multiple select example" name="menu_item">                     
+                    {% for pro in product %}
+                        {% if pro.category == 'Pa'  %}
+                             <option value='{{ pro.pk }}'>{{ pro.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="hidden" name="category" value="Pa">
+            <input type="submit" value="Agregar">
+        </div>
+        </div>
+    </form>
+
+    <!--parte de Salads-->
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">Salads</h5>
+    
+            <div id="toppings">
+                <select class="form-select" aria-label="multiple select example" name="menu_item">
+                    {% for pro in product %}
+                        {% if pro.category == 'Sa'  %}
+                             <option value='{{ pro.pk }}'>{{ pro.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="hidden" name="category" value="Sa">
+            <input type="submit" value="Agregar">
+        </div>
+        </div>    
+    </form>
+    
+    <!--parte de Dinner Platters-->
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">Platos Fuertes</h5>
+    
+            <p class="card-text">Size</p>
+            <select class="form-select" aria-label="Default select example" name="size">
+                <option value="Large">Large</option>
+                <option value="Small">Small</option>
+            </select>
+    
+            <div id="toppings">
+                <select class="form-select" aria-label="multiple select example" name="menu_item">
+                    {% for pro in product %}
+                        {% if pro.category == 'Di'  %}
+                            <option value='{{ pro.pk }}'>{{ pro.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="hidden" name="category" value="Di">
+            <input type="submit" value="Agregar">
+            </div>
+        </div>
+    </form>
+    
+
+{% endblock %}

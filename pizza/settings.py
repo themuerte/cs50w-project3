@@ -25,19 +25,27 @@ SECRET_KEY = 'i0&iq&e9u9h6(4_7%pt2s9)f=c$kso=k$c$w@fi9215s=1q0^d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+LOGOUT_REDIRECT_URL='/'
 
 # Application definition
 
 INSTALLED_APPS = [
-    'orders.apps.OrdersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #mi apps
+    'orders.apps.OrdersConfig',
+    'users.apps.UsersConfig',
+
+    ##third party apps
+    'bootstrap5',
+
 ]
 
 MIDDLEWARE = [
@@ -55,7 +63,9 @@ ROOT_URLCONF = 'pizza.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,7 +81,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pizza.wsgi.application'
 
 
-# Database
+# Database-
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
@@ -104,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-NI'
 
 TIME_ZONE = 'UTC'
 
@@ -119,3 +129,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
